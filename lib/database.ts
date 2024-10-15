@@ -1,6 +1,7 @@
 'use server'
 import { MongoClient } from "mongodb"
 import { Document, WithId, ObjectId } from "mongodb"
+import { returnSignedUrl } from "./s3"
 
 export async function searchOfficerRecord(records_id: string): Promise<WithId<Document>> {
   if (!process.env.MONGODB_URI) throw new Error("Database URI not specified.")
@@ -22,5 +23,6 @@ export async function searchOfficer(barcode_result: string): Promise<WithId<Docu
     const results_array = barcode_result.split("\n", 3)
     const recordsId = results_array[0]
     const officer_record = await searchOfficerRecord(recordsId)
-    return officer_record
+    const newImageUrl = await returnSignedUrl(officer_record.image)
+    return { ...officer_record, image: newImageUrl }
 }

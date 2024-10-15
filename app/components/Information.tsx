@@ -1,5 +1,4 @@
 import Image from "next/image"
-import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -14,7 +13,6 @@ import {
     AlertTitle,
     AlertDescription
 } from "@/components/ui/alert"
-
 import { Document, WithId } from "mongodb"
 
 interface Props {
@@ -34,10 +32,10 @@ export default function Information(prop: Props) {
                     <AlertDescription>Compare information from the ID with the information below for further security.</AlertDescription>
                 </Alert>
                 <div className="grid grid-cols-2 grid-rows-1 gap-4">
-                    <AspectRatio ratio={9/16}>
-                        <Image alt={`A image of ${prop.data?.name[0]} ${prop.data?.name[2]}`} src={prop.data?.image} width={320} height={210} />
-                    </AspectRatio>
-                    <div className="grid grid-cols-2 grid-rows-3 gap-2 max-h-[75%]">
+                    <div className="flex items-center justify-center">
+                        <Image alt={`A image of ${prop.data?.name[0]} ${prop.data?.name[2]}`} src={prop.data?.image} width={220} height={110} />
+                    </div>
+                    <div className="grid grid-cols-2 grid-rows-3 gap-8 max-h-[75%]">
                         <div className="max-h-fit">
                             <span className="text-gray-400 text-sm">ID Number</span>
                             <p>{prop.data?.student_id}</p>
